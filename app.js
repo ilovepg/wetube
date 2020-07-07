@@ -4,6 +4,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
+import {userRouter} from "./router";
 
 const app = express()
 //arrow function 
@@ -22,4 +23,5 @@ app.use(helmet()); //그냥 보안을 위한것.
 
 app.get("/profile",handleProfile);
 app.get("/",handleHome); // '/' URL에 GET방식으로 접근하면 handleHome 호출
+app.use("/user",userRouter); //누군가 /user 경로로 접근하면 이 router 전체를 사용하겠다는 의미
 export default app; //누군가 내 파일을 불러올 때 app object를 주겠다.
