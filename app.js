@@ -8,6 +8,7 @@ import bodyParser from "body-parser";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
+import routes from "./routes";
 
 const app = express()
 
@@ -18,7 +19,7 @@ app.use(bodyParser.json());
 app.use(morgan("dev"));
 app.use(helmet()); //그냥 보안을 위한것.
 
-app.user("/",globalRouter); //join, /search, /home, / 등등을 다룸.
-app.use("/user",userRouter); //누군가 /user 경로로 접근하면 이 router 전체를 사용하겠다는 의미
-app.use("/video",videoRouter);
+app.use(routes.home,globalRouter); //join, /search, /home, / 등등을 다룸.
+app.use(routes.users,userRouter); //누군가 /user 경로로 접근하면 이 router 전체를 사용하겠다는 의미
+app.use(routes.videos,videoRouter);
 export default app; //누군가 내 파일을 불러올 때 app object를 주겠다.
