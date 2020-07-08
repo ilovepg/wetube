@@ -11,7 +11,7 @@ import globalRouter from "./routers/globalRouter";
 import routes from "./routes";
 
 const app = express()
-app.set('view engine',"pug");
+app.set("view engine","pug"); //view engine을 pug로 설정
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
