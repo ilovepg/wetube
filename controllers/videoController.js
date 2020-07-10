@@ -4,6 +4,7 @@ import Video from "../models/Video";
 export const home = async (req,res) => {
     try{
         const videos = await Video.find({}); //DB에 있는 모든 VIDEO 가져오기
+        console.log(videos);
         res.render("home",{pageTitle: "Home",videos});
     }catch(error){
         console.log(error);
@@ -29,8 +30,7 @@ export const postUpload = async (req,res) => {
         description
     });
     console.log(newVideo);
-    //To Do : Upload and save video
-    res.redirect(routes.videoDetail(newVideo.id));
+    res.redirect(routes.videoDetail(newVideo.id)); //id는 MongoDB가 자동으로 부여
 }
 
 export const videoDetail = (req,res) => res.render('videoDetail',{pageTitle:"Video Detail"});
