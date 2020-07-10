@@ -3,7 +3,7 @@ import Video from "../models/Video";
 
 export const home = async (req,res) => {
     try{
-        const videos = await Video.find({}); //DB에 있는 모든 VIDEO 가져오기
+        const videos = await Video.find({}).sort({_id:-1}); //DB에 있는 모든 VIDEO 가져오기 (sort -1은 위 아래 순서를 바꾸겠다는 의미(?))
         console.log(videos);
         res.render("home",{pageTitle: "Home",videos});
     }catch(error){
@@ -11,11 +11,18 @@ export const home = async (req,res) => {
         res.render("home",{pageTitle: "Home",videos:[]});
     }
 };
-export const search = (req,res) => {
+export const search = async(req,res) => {
     //const searchingBy=req.query.term; //ES6 이전방식에는 이렇게 사용했다.
     const { //ES6 문법 : req.query.term을 한것과 같다.
         query:{term:searchingBy}
     } = req; 
+    let videos = [];
+    try{
+        videos = await Video.find({title:{$regex:searchingBy, $options: "i" }});
+        console.log("sdf");
+    }catch(error){
+        console.log(error);
+    }
     res.render('search',{pageTitle:"Search",searchingBy,videos});
 };
 export const getUpload = (req,res) => res.render('upload',{pageTitle:"Upload"});
