@@ -14,7 +14,8 @@ import routes from "./routes";
 const app = express()
 app.use(helmet()); //그냥 보안을 위한것.
 app.set("view engine","pug"); //view engine을 pug로 설정
-app.use("/uploads",express.static("uploads"));
+app.use("/uploads",express.static("uploads")); // /uploads 경로로 가려고 한다면 uploads폴더로 가보라고하는거지.
+app.use("/static",express.static("static"));   // /static경로로 가려고 한다면 static폴더로 가보라고하는것.
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
